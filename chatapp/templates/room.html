@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #333;
+  color: #fff;
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 0 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #fff;
+  margin-top: 20px;
+}
+
+a.home-link {
+  text-decoration: none;
+  color: white;
+  display: block;
+  text-align: center;
+  margin: 10px auto; /* Center the link horizontally and provide vertical margin */
+  background-color: #007bff;
+  width: 100px; /* Set a fixed width or adjust as needed */
+  padding: 10px; /* Add padding to make it more clickable */
+  border-radius: 5px; /* Add rounded corners for better aesthetics */
+}
+a.home-link:hover {
+  background-color: #0056b3;
+}
+
+.container {
+  border: 2px solid #555;
+  background-color: #444;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #333;
+  background-color: #333;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+
+.container input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #555;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #222;
+  color: #fff;
+}
+
+.container input[type=submit] {
+  width: 30%;
+  background-color: #007bff;
+  color: #fff;
+  padding: 14px 20px;
+  margin: 8px auto; /* Center horizontally */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block; /* Convert to block-level for centering */
+}
+
+.container input[type=submit]:hover {
+  background-color: #0056b3;
+}
+
+.container div {
+  border-radius: 5px;
+  background-color: #333;
+  padding: 20px;
+}
+.display {
+  background-color: gray;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>{{room}} - ChatHub</h2>
+<a href="/" class="home-link">Home</a>
+<div class="message-box" id="display">
+  <!-- Messages will be displayed here -->
+</div>
+<script>
+$(document).ready(function(){
+  setInterval(function(){
+      $.ajax({
+          type: 'GET',
+          url : "/getMessages/{{room}}/",
+          success: function(response){
+              console.log(response);
+              $("#display").empty();
+              for (var key in response.messages)
+              {
+                  var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
+                  $("#display").append(temp);
+              }
+          },
+          error: function(response){
+              alert('An error occurred')
+          }
+      });
+  },1000);
+})
+</script>
+<div class="container">
+  <form id="post-form">
+      {% csrf_token %}
+      <input type="hidden" name="username" id="username" value="{{username}}"/>
+      <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+      <input type="text" name="message" id="message" placeholder="Enter your message" />
+      <input type="submit" value="Send">
+  </form>
+</div>
+</body>
+<script type="text/javascript">
+$(document).on('submit','#post-form',function(e){
+  e.preventDefault();
+  $.ajax({
+    type:'POST',
+    url:'/send',
+    data:{
+        username:$('#username').val(),
+        room_id:$('#room_id').val(),
+        message:$('#message').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+    },
+    success: function(data){
+      //alert(data)
+    }
+  });
+  document.getElementById('message').value = ''
+});
+</script>
+</html>

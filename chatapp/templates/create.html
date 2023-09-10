@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #333;
+          margin: 0;
+          padding: 0;
+          color: #fff;
+      }
+
+      h2 {
+          text-align: center;
+          color: #fff;
+          margin-top: 20px;
+      }
+
+      a.signup-link {
+          text-decoration: none;
+          color: #007bff;
+          display: block;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 20px;
+      }
+
+      .container {
+          background-color: #444;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          width: 300px;
+          margin: 0 auto;
+      }
+
+      p {
+          font-weight: bold;
+          margin-top: 10px;
+          margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+          width: 93%;
+          padding: 10px;
+          margin-bottom: 20px;
+          border: 1px solid #555;
+          border-radius: 5px;
+          background-color: #222;
+          color: #fff;
+      }
+
+      input[type="submit"] {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+          background-color: #0056b3;
+      }
+
+      a.back-link {
+      text-decoration: none;
+      color: white;
+      display: block;
+      text-align: center;
+      margin: 10px auto; /* Center the link horizontally and provide vertical margin */
+      background-color: #007bff;;
+      width: 100px; /* Set a fixed width or adjust as needed */
+      padding: 10px; /* Add padding to make it more clickable */
+      border-radius: 5px; /* Add rounded corners for better aesthetics */
+  }
+      a.back-link:hover {
+        background-color: #0056b3;
+      }
+
+  </style>
+</head>
+<body>
+    <h2>CreateRoom - {{room_name}}</h2>
+
+    <a href="/" class="back-link">Back</a>
+
+    <div class="container">
+        <form id="post-form" method="post" action="{% url 'createroom' room_name %}">
+            {% csrf_token %}
+            <p>Create a room code:</p>
+            <input type="hidden" name="room_name" id="room_name" value="room"/>
+            <input type="hidden" name="username" id="username" value="username"/>
+            <input type="text" name="code" id="code" placeholder="Enter room code" />
+            <input type="submit" value="Create">
+        </form>
+    </div>
+</body>
+</html>

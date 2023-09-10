@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatHub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        div.align-center {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #fff;
+        }
+
+        a.logout-link {
+            text-decoration: none;
+            color: white;
+            display: block;
+            text-align: center;
+            margin: 10px auto; /* Center the link horizontally and provide vertical margin */
+            background-color: #007bff;
+            width: 100px; /* Set a fixed width or adjust as needed */
+            padding: 10px; /* Add padding to make it more clickable */
+            border-radius: 5px; /* Add rounded corners for better aesthetics */
+        }
+
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        p {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="align-center">
+        <h2>ChatHub</h2>
+    </div>
+
+    <a href="logout" class="logout-link">Logout</a>
+
+    <div class="container">
+        <form id="post-form" method="POST" action="checkview">
+            {% csrf_token %}
+            <label for="room_name">Room Name</label>
+            <input type="text" name="room_name" id="room_name" />
+            <input type="submit" value="Enter Room">
+        </form>
+    </div>
+</body>
+</html>

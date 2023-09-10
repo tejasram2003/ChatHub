@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        a.signup-link {
+            text-decoration: none;
+            color: white;
+            display: block;
+            text-align: center;
+            margin: 10px auto; /* Center the link horizontally and provide vertical margin */
+            background-color: #007bff;
+            width: 100px; /* Set a fixed width or adjust as needed */
+            padding: 10px; /* Add padding to make it more clickable */
+            border-radius: 5px; /* Add rounded corners for better aesthetics */
+        }
+
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        p {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 93%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login - ChatHub</h2>
+
+    <a href="signup" class="signup-link">Sign up</a>
+
+    <div class="container">
+        <form id="post-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <p>Enter your username:</p>
+            <input type="text" name="username" id="username" />
+            <p>Enter your password:</p>
+            <input type="password" name="password" id="password" />
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</body>
+</html>
